@@ -4,7 +4,7 @@ import { useStyles } from '../styles';
 export default function Logo() {
     const styles = useStyles();
     return (
-        <img src="/img/logo.png"
+        <img src="/img/logo.svg"
             alt="logotipo"
             className={styles.LargeLogo}></img>
     )

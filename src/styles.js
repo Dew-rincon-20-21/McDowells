@@ -1,4 +1,4 @@
-import { makeStyles, rgbToHex } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 
 export const useStyles = makeStyles((theme) => ({
@@ -30,4 +30,14 @@ export const useStyles = makeStyles((theme) => ({
     largeLogo: {
         height: 100,
     },
+    card: { margin: 10 },
+    media: { width: 200 },
+    cards: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },  title: {
+        marginTop: 20,
+      },
+
 }));
