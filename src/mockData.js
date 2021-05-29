@@ -1,8 +1,8 @@
 export const catalogue = {
     categories: [
-        { name: "hamburguesas", img: "/img/hamburguesas.jpg" },
-        { name: "otros", img: "/img/drinks.jpg" },
-        { name: "postres", img: "/img/other.jpg" }
+        { name: "hamburguesas", img: "/img/hamburguer.png" },
+        { name: "otros", img: "/img/other.png" },
+        { name: "postres", img: "/img/dessert.png" }
     ],
     products: [
         {
@@ -18,6 +18,13 @@ export const catalogue = {
           price: 1.8,
           calorie: 50,
           image: '/img/6.jpg',
+        },
+        {
+          category: 'otros',
+          name: 'Slurm',
+          price: 1.8,
+          calorie: 50,
+          image: '/img/8.jpg',
         },
         {
           category: 'postres',
