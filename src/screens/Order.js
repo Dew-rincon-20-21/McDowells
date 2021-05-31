@@ -1,18 +1,56 @@
-import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Grid, List, ListItem, Typography, } from '@material-ui/core';
+import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Dialog, DialogTitle, Grid, List, ListItem, TextField, Typography, } from '@material-ui/core';
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
 
 import React, { useContext, useEffect, useState } from 'react'
-import { listCategories, listProducts } from '../actions';
+import { listCategories, listProducts, removeFromOrder, addToOrder } from '../actions';
 import Logo from '../components/Logo';
 import { CURRENCY_SYMBOL } from '../constants';
 import { Store } from '../Store';
 import { useStyles } from '../styles'
 
-export default function Order() {
+export default function Order(props) {
     const styles = useStyles();
     const { state, dispatch } = useContext(Store);
     const { categories } = state.categoryList;
     const { products } = state.productList;
+    const {
+        items,
+        itemsCount,
+        totalPrice,
+    } = state.order;
+
     const [categoryName, setCategoryName] = useState('')
+    const [quantity, setQuantity] = useState(1);
+    const [isOpen, setIsOpen] = useState(false);
+    const [product, setProduct] = useState({});
+
+    const closeHandler = () => {
+        setIsOpen(false);
+    };
+
+    const productClickHandler = (p) => {
+        setProduct(p);
+        setIsOpen(true);
+    };
+
+    const categoryClickHandler = (name) => {
+        setCategoryName(name);
+        listProducts(dispatch, categoryName);
+    }
+
+    const addToOrderHandler = () => {
+        addToOrder(dispatch, { ...product, quantity });
+        setIsOpen(false);
+    };
+    const cancelOrRemoveFromOrder = () => {
+        removeFromOrder(dispatch, product);
+        setIsOpen(false);
+    };
+    const previewOrderHandler = () => {
+        props.history.push("/review");
+    };
+
 
     useEffect(() => {
         if (!categories.length) {
@@ -22,17 +60,72 @@ export default function Order() {
         }
     }, [dispatch, categoryName, categories])
 
-
-
-    const categoryClickHandler = (name) => {
-        setCategoryName(name);
-        listProducts(dispatch, categoryName);
-    }
-
-
+    console.log(items);
     return (
         <Box className={styles.root}>
             <Box className={styles.main}>
+                <Dialog
+                    onClose={closeHandler}
+                    aria-labelledby="max-width-dialog-title"
+                    open={isOpen}
+                    fullWidth={true}
+                    maxWidth="sm">
+
+                    <DialogTitle className={styles.center}>
+                        Add {product.name}
+                    </DialogTitle>
+                    <Box className={[styles.row, styles.center]}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={quantity === 1}
+                            onClick={(e) => quantity > 1 && setQuantity(quantity - 1)}                        >
+                            <RemoveIcon />
+                        </Button>
+                        <TextField
+                            inputProps={{ className: styles.largeInput }}
+                            InputProps={{
+                                bar: true,
+                                inputProps: {
+                                    className: styles.largeInput,
+                                },
+                            }}
+                            className={styles.largeNumber}
+                            type="number"
+                            variant="filled"
+                            min={1}
+                            value={quantity} />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={(e) => setQuantity(quantity + 1)}                        >
+                            <AddIcon />
+                        </Button>
+                    </Box>
+                    <Box className={[styles.row, styles.around]}>
+                        <Button
+                            onClick={cancelOrRemoveFromOrder}
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            className={styles.largeButton}                        >
+                            {items.find((x) => x.name === product.name)
+                                ? 'Remove From Order'
+                                : 'Cancel'}
+                        </Button>
+
+                        <Button
+                            onClick={addToOrderHandler}
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            className={styles.largeButton}                        >
+                            ADD To Order
+                        </Button>
+                    </Box>
+                </Dialog>
+
+
                 <Grid container>
                     <Grid item md={2}>
                         <List>
@@ -54,7 +147,7 @@ export default function Order() {
                             {products.map((product) => (
                                 <Grid item md={6}>
                                     <Card>
-                                        <CardActionArea >
+                                        <CardActionArea onClick={() => productClickHandler(product)} >
                                             <CardMedia
                                                 component="img"
                                                 alt={product.name}

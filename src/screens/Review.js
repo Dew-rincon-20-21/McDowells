@@ -7,18 +7,21 @@ import Logo from '../components/Logo';
 export default function Review(props) {
     const styles = useStyles();
     return (
-        <Card>
-            <Box md={2}>
+        <Box className={styles.root}>
+            <Box className={styles.main}>
+                <Card>
+                    <Box md={2}>
                         <Logo >
-                        </Logo>             
-            </Box>
+                        </Logo>
+                    </Box>
                     <Typography component="h1" variant="h1">
                         Resumen del pedido:
                     </Typography>
-                    
-               
 
-        </Card>
 
+
+                </Card>
+            </Box>
+        </Box >
     )
 }

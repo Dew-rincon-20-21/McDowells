@@ -1,15 +1,15 @@
-import {  CATEGORY_LIST_GET,  PRODUCT_LIST_GET } from "./constants"
+import { CATEGORY_LIST_GET, ORDER_ADD_ITEM, ORDER_REMOVE_ITEM, PRODUCT_LIST_GET } from "./constants"
 import { catalogue } from "./mockData";
 
 
 
 
 
-export const listCategories =  (dispatch) => {
-   
-// aqui se haría la petición de datos al servidor, en este caso trabajamos con datos de ejemplo
+export const listCategories = (dispatch) => {
+
+    // aqui se haría la petición de datos al servidor, en este caso trabajamos con datos de ejemplo
     const data = catalogue.categories;
-    
+
     return dispatch({
         type: CATEGORY_LIST_GET,
         payload: data,
@@ -18,8 +18,8 @@ export const listCategories =  (dispatch) => {
 
 
 export const listProducts = async (dispatch, categoryName = '') => {
-    
-    let data =[];
+
+    let data = [];
     if (!categoryName) {
         data = catalogue.products;
     } else {
@@ -33,3 +33,17 @@ export const listProducts = async (dispatch, categoryName = '') => {
         payload: data,
     });
 }
+
+
+export const addToOrder = async (dispatch, item) => {
+    return dispatch({
+        type: ORDER_ADD_ITEM,
+        payload: item,
+    });
+};
+export const removeFromOrder = async (dispatch, item) => {
+    return dispatch({
+        type: ORDER_REMOVE_ITEM,
+        payload: item,
+    });
+};

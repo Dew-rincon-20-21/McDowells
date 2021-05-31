@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { CATEGORY_LIST_GET, PRODUCT_LIST_GET, ORDER_ADD_ITEM } from "./constants";
+import { CATEGORY_LIST_GET, PRODUCT_LIST_GET, ORDER_ADD_ITEM,ORDER_CLEAR,ORDER_REMOVE_ITEM } from "./constants";
 
 
 export const Store = createContext();
@@ -8,7 +8,10 @@ export const Store = createContext();
 const initialState = {
     categoryList: { categories: [] },
     productList: { products: [] },
-    order: {items: []},
+    order: {
+        items: [], itemsCount: 0,
+        totalPrice: 0,
+    },
 };
 
 
@@ -24,10 +27,65 @@ function reducer(state, action) {
             return {
                 ...state, productList: { products: action.payload }
             }
-        case ORDER_ADD_ITEM:
-           return {
-            ...state, order: { items: action.payload}
+        case ORDER_ADD_ITEM: {
+            const item = action.payload;
+            const existItem = state.order.items.find(
+                (x) => x.name === item.name
+            );
+            const items = existItem
+                ? state.order.items.map((x) =>
+                    x.name === existItem.name ? item : x
+                )
+                : [...state.order.items, item];
+
+            const itemsCount = items.reduce((a, c) => a + c.quantity, 0);
+            const itemsPrice = items.reduce(
+                (a, c) => a + c.quantity * c.price,
+                0
+            );
+
+            const totalPrice = itemsPrice;
+            return {
+                ...state,
+                order: {
+                    ...state.order,
+                    items,
+                    totalPrice,
+                    itemsCount,
+                },
+            };
         }
+        case ORDER_REMOVE_ITEM:
+            const items = state.order.items.filter(
+                (x) => x.name !== action.payload.name
+            );
+            const itemsCount = items.reduce((a, c) => a + c.quantity, 0);
+            const itemsPrice = items.reduce(
+                (a, c) => a + c.quantity * c.price,
+                0
+            );
+
+            const totalPrice = itemsPrice;
+            return {
+                ...state,
+                order: {
+                    ...state.order,
+                    items: items,
+                    totalPrice,
+                    itemsCount,
+                },
+            };
+
+        case ORDER_CLEAR:
+            return {
+                ...state,
+                order: {
+                    items: [],
+                    totalPrice: 0,
+                    itemsCount: 0,
+                },
+            };
+
         default:
             return state;
     }
