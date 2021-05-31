@@ -1,10 +1,8 @@
-
 import React from 'react'
 import { Box, Card, CardActionArea, Typography } from '@material-ui/core';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import { useStyles } from '../styles';
 import Logo from '../components/Logo';
-
 
 export default function Home(props) {
     const styles = useStyles();
@@ -18,10 +16,9 @@ export default function Home(props) {
                         </Logo>
                         <Typography component="h1" variant="h1">
                             Haz tu pedido aquí.
-                    </Typography>
+                        </Typography>
                         <TouchAppIcon fontSize="large"></TouchAppIcon>
                     </Box>
-
                 </Box>
             </CardActionArea>
         </Card>

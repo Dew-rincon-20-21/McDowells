@@ -1,31 +1,24 @@
-import { ORDER_SET_TYPE, CATEGORY_LIST_GET, CATEGORY_LIST_SUCCESS, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "./constants"
+import {  CATEGORY_LIST_GET,  PRODUCT_LIST_GET } from "./constants"
 import { catalogue } from "./mockData";
 
 
-export const setOrderType = (dispatch, orderType) => {
-    return dispatch({
-        type: ORDER_SET_TYPE,
-        payload: orderType,
-    });
-};
 
 
 
-export const listCategories = async (dispatch) => {
-    dispatch({ type: CATEGORY_LIST_GET });
-
+export const listCategories =  (dispatch) => {
+   
+// aqui se haría la petición de datos al servidor, en este caso trabajamos con datos de ejemplo
     const data = catalogue.categories;
-    console.log(data);
-
+    
     return dispatch({
-        type: CATEGORY_LIST_SUCCESS,
+        type: CATEGORY_LIST_GET,
         payload: data,
     });
 }
 
 
 export const listProducts = async (dispatch, categoryName = '') => {
-    dispatch({ type: PRODUCT_LIST_REQUEST })
+    
     let data =[];
     if (!categoryName) {
         data = catalogue.products;
@@ -36,7 +29,7 @@ export const listProducts = async (dispatch, categoryName = '') => {
     }
 
     return dispatch({
-        type: PRODUCT_LIST_SUCCESS,
+        type: PRODUCT_LIST_GET,
         payload: data,
     });
 }

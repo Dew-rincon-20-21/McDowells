@@ -1,5 +1,8 @@
 
 import Home from "./screens/Home";
+import Order from "./screens/Order";
+import Review from "./screens/Review";
+
 import {
   Container,
   CssBaseline,
@@ -8,7 +11,7 @@ import {
   createMuiTheme,
 } from '@material-ui/core';
 import { BrowserRouter, Route } from "react-router-dom";
-import Order from "./screens/Order";
+
 
 const theme = createMuiTheme({
   typography: {
@@ -34,6 +37,7 @@ const theme = createMuiTheme({
     },
   }
 })
+
 function App() {
   return (
     <BrowserRouter>
@@ -43,6 +47,7 @@ function App() {
           <Paper>
             <Route path="/" component={Home} exact={true}></Route>
             <Route path="/order" component={Order} exact={true}></Route>
+            <Route path="/review" component={Review} exact={true}></Route>
 
           </Paper>
         </Container>
