@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Dialog, DialogTitle, Grid, List, ListItem, TextField, Typography, } from '@material-ui/core';
+import {Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Dialog, DialogTitle, Grid, List, ListItem, TextField, Typography, } from '@material-ui/core';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -72,14 +72,23 @@ export default function Order(props) {
                     maxWidth="sm">
 
                     <DialogTitle className={styles.center}>
-                        Add {product.name}
+                        Añadir {product.name}
+                        <Card>
+                            <CardMedia
+                                component="img"
+                                alt={product.name}
+                                image={product.image}
+                                className={styles.media}>
+                            </CardMedia>
+                        </Card>
                     </DialogTitle>
+
                     <Box className={[styles.row, styles.center]}>
                         <Button
                             variant="contained"
                             color="primary"
                             disabled={quantity === 1}
-                            onClick={(e) => quantity > 1 && setQuantity(quantity - 1)}                        >
+                            onClick={(e) =>  setQuantity(quantity - 1)}                        >
                             <RemoveIcon />
                         </Button>
                         <TextField
@@ -91,7 +100,6 @@ export default function Order(props) {
                                 },
                             }}
                             className={styles.largeNumber}
-                            type="number"
                             variant="filled"
                             min={1}
                             value={quantity} />
@@ -170,21 +178,9 @@ export default function Order(props) {
                                                     color="textSecondary"
                                                     component="p">
                                                     {product.price} {CURRENCY_SYMBOL}
-
+                                                    
                                                 </Typography>
                                             </Box>
-                                            <Container >
-                                                <Button variant="outlined" color="secondary" size="small">
-                                                    - </Button>
-                                                <Typography
-
-                                                    variant="body1"
-                                                    color="textPrimary"
-                                                    component="span" >0
-                                                </Typography>
-                                                <Button variant="outlined" color="secondary" size="small" spacing="mx">
-                                                    + </Button>
-                                            </Container>
                                         </CardContent>
                                     </Card>
                                 </Grid>
@@ -192,7 +188,19 @@ export default function Order(props) {
                         </Grid>
                     </Grid>
                 </Grid>
+                <Box  className = {[styles.center, styles.footOrder, styles.footer]}>
+                    Productos pedidos: {itemsCount} / Precio del pedido: {totalPrice} {CURRENCY_SYMBOL}
+                    <Button 
+                            onClick={previewOrderHandler}
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            className={styles.largeButton}                        >
+                            Finalizar Pedido
+                        </Button>
+                </Box>
             </Box>
         </Box >
+
     )
 }

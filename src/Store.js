@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { CATEGORY_LIST_GET, PRODUCT_LIST_GET, ORDER_ADD_ITEM,ORDER_CLEAR,ORDER_REMOVE_ITEM } from "./constants";
+import { CATEGORY_LIST_GET, PRODUCT_LIST_GET, ORDER_ADD_ITEM, ORDER_CLEAR, ORDER_REMOVE_ITEM } from "./constants";
 
 
 export const Store = createContext();
@@ -9,8 +9,10 @@ const initialState = {
     categoryList: { categories: [] },
     productList: { products: [] },
     order: {
-        items: [], itemsCount: 0,
+        items: [],
+        itemsCount: 0,
         totalPrice: 0,
+
     },
 };
 
@@ -85,7 +87,7 @@ function reducer(state, action) {
                     itemsCount: 0,
                 },
             };
-
+            
         default:
             return state;
     }
