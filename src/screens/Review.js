@@ -7,6 +7,7 @@ import { CURRENCY_SYMBOL } from '../constants';
 
 
 
+
 export default function Review(props) {
     const styles = useStyles();
     const { state, /*dispatch*/ } = useContext(Store);
@@ -33,31 +34,31 @@ export default function Review(props) {
                     </Typography>
                     </Grid>
                 </Grid>
-
+                <Divider/>
                 <List style={{ maxHeight: '100%', overflow: 'auto' }} >
                     {items.map((element) => (
 
                         <ListItem key={element.name} >
                             <Avatar alt={element.name} src={element.image} />
-                            <ListItemText className={[styles.ReviewTitle]} primary={element.name} secondary={"Precio: " + element.price + "   " + CURRENCY_SYMBOL + " / Cantidad: " + element.quantity} />
-                            <ListItemText secondary={"Subtotal: " + element.price * element.quantity + " " + CURRENCY_SYMBOL} />
+                            <ListItemText className={[styles.ReviewTitle]} primary={element.name} secondary={"Precio: " + element.price.toFixed(2) + "   " + CURRENCY_SYMBOL + " / Cantidad: " + element.quantity} />
+                            <ListItemText secondary={"Subtotal: " + (element.price * element.quantity).toFixed(2) + " " + CURRENCY_SYMBOL} />
                         </ListItem>
                     ))}
                     <Divider/>
-                    <ListItem key="total">
-                        <Typography 
-                        align="left"
+                    number ()
+                    <ListItem key="total" className={styles.right}>
+                        <Typography gutterBottom
                         variant="subtitle1"
                         color="textPrimary"
                         component="p">
-                        Precio total del pedido: {totalPrice} {CURRENCY_SYMBOL}
+                        Precio total del pedido: {totalPrice.toFixed(2)} {CURRENCY_SYMBOL}
                         </Typography>
                     </ListItem>
                 </List>
 
 
                 <Box className={[styles.center, styles.footOrder]}>
-                    Productos en el pedido: {itemsCount} / Precio del pedido: {totalPrice} {CURRENCY_SYMBOL}
+                    Productos en el pedido: {itemsCount} / Precio del pedido: {totalPrice.toFixed(2)} {CURRENCY_SYMBOL}
                 </Box>
 
                 <Button

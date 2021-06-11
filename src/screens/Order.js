@@ -179,7 +179,7 @@ export default function Order(props) {
                                                     variant="body2"
                                                     color="textSecondary"
                                                     component="p">
-                                                    {product.price} {CURRENCY_SYMBOL}
+                                                    {product.price.toFixed(2)} {CURRENCY_SYMBOL}
 
                                                 </Typography>
                                             </Box>
@@ -196,7 +196,7 @@ export default function Order(props) {
 
             </Box>
             <Box className={[styles.center, styles.footOrder,]}>
-                Productos en el pedido: {itemsCount} / Precio del pedido: {totalPrice} {CURRENCY_SYMBOL}
+                Productos en el pedido: {itemsCount} / Precio del pedido: {totalPrice.toFixed(2)} {CURRENCY_SYMBOL}
             </Box>
             <Button
                 onClick={previewOrderHandler}

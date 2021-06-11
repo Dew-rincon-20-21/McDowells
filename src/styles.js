@@ -27,6 +27,12 @@ export const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         textAlign: "center",
     },
+    right: {
+        display: 'flex',
+        justifyContent: "right",
+        alignItems: "right",
+        textAlign: "right",
+    },
     largeLogo: {
         height: 100,
     },
