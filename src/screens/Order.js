@@ -1,4 +1,4 @@
-import {Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Dialog, DialogTitle, Grid, List, ListItem, TextField, Typography, } from '@material-ui/core';
+import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Dialog, DialogTitle, Grid, List, ListItem, TextField, Typography, } from '@material-ui/core';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -88,7 +88,7 @@ export default function Order(props) {
                             variant="contained"
                             color="primary"
                             disabled={quantity === 1}
-                            onClick={(e) =>  setQuantity(quantity - 1)}                        >
+                            onClick={(e) => setQuantity(quantity - 1)}                        >
                             <RemoveIcon />
                         </Button>
                         <TextField
@@ -110,7 +110,7 @@ export default function Order(props) {
                             <AddIcon />
                         </Button>
                     </Box>
-                    <Box className={[styles.row, styles.around]}>
+                    <Box flexDirection="row" className={[styles.row]} >
                         <Button
                             onClick={cancelOrRemoveFromOrder}
                             variant="contained"
@@ -118,8 +118,8 @@ export default function Order(props) {
                             size="large"
                             className={styles.largeButton}                        >
                             {items.find((x) => x.name === product.name)
-                                ? 'Remove From Order'
-                                : 'Cancel'}
+                                ? 'Eliminar del pedido'
+                                : 'Cancelar'}
                         </Button>
 
                         <Button
@@ -128,13 +128,15 @@ export default function Order(props) {
                             color="primary"
                             size="large"
                             className={styles.largeButton}                        >
-                            ADD To Order
+                            Añadir al pedido
                         </Button>
                     </Box>
                 </Dialog>
 
-
-                <Grid container>
+                <Grid container spacing={2} style={{
+                    margin: 0,
+                    width: '100%',
+                }}>
                     <Grid item md={2}>
                         <List>
                             <ListItem onClick={() => categoryClickHandler("")} button>
@@ -178,7 +180,7 @@ export default function Order(props) {
                                                     color="textSecondary"
                                                     component="p">
                                                     {product.price} {CURRENCY_SYMBOL}
-                                                    
+
                                                 </Typography>
                                             </Box>
                                         </CardContent>
@@ -188,19 +190,23 @@ export default function Order(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Box  className = {[styles.center, styles.footOrder, styles.footer]}>
-                    Productos pedidos: {itemsCount} / Precio del pedido: {totalPrice} {CURRENCY_SYMBOL}
-                    <Button 
-                            onClick={previewOrderHandler}
-                            variant="contained"
-                            color="primary"
-                            size="large"
-                            className={styles.largeButton}                        >
-                            Finalizar Pedido
-                        </Button>
-                </Box>
+
+
+
+
             </Box>
-        </Box >
+            <Box className={[styles.center, styles.footOrder,]}>
+                Productos en el pedido: {itemsCount} / Precio del pedido: {totalPrice} {CURRENCY_SYMBOL}
+            </Box>
+            <Button
+                onClick={previewOrderHandler}
+                variant="contained"
+                color="primary"
+                size="large"
+                className={[styles.largeButton]}                        >
+                Finalizar Pedido </Button>
+        </Box>
+
 
     )
 }

@@ -1,4 +1,4 @@
-import { AppBar, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 
 export const useStyles = makeStyles((theme) => ({
@@ -36,18 +36,28 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-    },  title: {
+    },
+    title: {
         marginTop: 20,
-      },
+    },
     footOrder: {
-        color:"red",
+        color: "red",
         backgroundColor: "#bbbbbb",
         borderWidth: 2,
         borderRadius: 10,
         fontWeight: "bold",
-     },
+    },
     footer: {
         position: "fixed",
         bottom: 0,
-      }
+    },
+    ReviewTitle: {
+        color: "black",
+        fontWeight: "bold",
+    },
+    row: {
+        display:"flex",
+        padding:10,
+        justifyContent:"space-around",
+    },
 }));
